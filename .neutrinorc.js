@@ -7,7 +7,7 @@ const envs = {
   STATS_URL: 'http://localhost:5090/stats'
 };
 
-// Set environment variables to their default values if not defined
+// Set environment variables to their default values if undefined
 Object
   .keys(envs)
   .forEach(env => !(env in process.env) && (process.env[env] = envs[env]));
