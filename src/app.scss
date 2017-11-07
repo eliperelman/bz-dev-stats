@@ -1,0 +1,216 @@
+@import '~react-md/src/scss/react-md';
+
+$md-primary-color: $md-blue-grey-500;
+$md-secondary-color: $md-deep-orange-a-200;
+
+@include react-md-everything;
+
+@font-face {
+  font-family: Roboto400;
+  src:
+    url('~typeface-roboto/files/roboto-latin-400.woff2') format('woff2'),
+    url('~typeface-roboto/files/roboto-latin-400.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: Roboto700;
+  src:
+    url('~typeface-roboto/files/roboto-latin-700.woff2') format('woff2'),
+    url('~typeface-roboto/files/roboto-latin-700.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: Roboto400Italic;
+  src:
+    url('~typeface-roboto/files/roboto-latin-400italic.woff2') format('woff2'),
+    url('~typeface-roboto/files/roboto-latin-400italic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: Roboto700Italic;
+  src:
+    url('~typeface-roboto/files/roboto-latin-700italic.woff2') format('woff2'),
+    url('~typeface-roboto/files/roboto-latin-700italic.woff') format('woff');
+  font-weight: 700;
+  font-style: italic;
+}
+
+/*
+  The purpose of defining class stages is to
+  re-render once a stage has been met. We start
+  with the minimal default stage of sans-serif,
+  and progressively re-render.
+*/
+html, body {
+  background-color: #f9f9fa;
+}
+
+body, p {
+  font-size: 15px;
+  font-family: sans-serif;
+  font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6, p, button, input, textarea, html {
+  font-family: sans-serif;
+}
+
+code {
+  font-family: monospace;
+  font-weight: 400;
+}
+
+strong {
+  font-weight: 700;
+}
+
+em {
+  font-style: italic;
+}
+
+/*
+  The defined stages now modify the display of
+  elements once they are loaded.
+*/
+
+/*
+  During primary stage we only load the Fira Sans font.
+  Once it's loaded, update the body to use it.
+*/
+.font-stage-primary {
+  h1, h2, h3, h4, h5, h6, p, input, textarea, html, body {
+    font-family: Roboto400, sans-serif;
+  }
+}
+
+/*
+  During secondary stage we load Fira Sans Bold, Fira Sans Italic,
+  and Fira Sans Bold Italic. Once these 3 are loaded, we can once
+  again update relevant elements to render using these fonts.
+*/
+.font-stage-secondary {
+  strong {
+    font-family: Roboto700, sans-serif;
+    font-weight: 700;
+
+    em {
+      font-family: Roboto400Italic, sans-serif;
+      font-style: italic;
+    }
+  }
+
+  em {
+    font-family: Roboto400Italic, sans-serif;
+    font-style: italic;
+
+    strong {
+      font-family: Roboto700Italic, sans-serif;
+      font-weight: 700;
+    }
+  }
+}
+
+.md-text--secondary {
+  font-weight: 700;
+}
+
+.react-calendar-heatmap {
+  height: 100%;
+}
+
+.react-calendar-heatmap text {
+  font-size: 10px;
+  fill: #aaa;
+}
+
+.react-calendar-heatmap .react-calendar-heatmap-small-text {
+  font-size: 5px;
+}
+
+.react-calendar-heatmap rect:hover {
+  stroke: #555;
+  stroke-width: 1px;
+}
+
+/*
+ * Default color scale
+ */
+
+.react-calendar-heatmap .color-empty {
+  fill: #eeeeee;
+}
+
+.react-calendar-heatmap .color-filled {
+  fill: #8cc665;
+}
+
+/*
+ * Github color scale
+ */
+
+.react-calendar-heatmap .color-0 {
+  fill: #eeeeee;
+}
+.react-calendar-heatmap .color-1 {
+  fill: lighten(#910007, 60%);
+}
+.react-calendar-heatmap .color-2 {
+  fill: lighten(#910007, 40%);
+}
+.react-calendar-heatmap .color-3 {
+  fill: lighten(#910007, 20%);
+}
+.react-calendar-heatmap .color-4 {
+  fill: #910007;
+}
+
+.md-card-text {
+  padding-top: 0;
+}
+
+.md-table-pagination__label,
+#simple-pagination-pagination-menu {
+  display: none;
+}
+
+.md-chip--avatar {
+  padding-left: 34px;
+}
+
+.chips {
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row
+}
+
+.chip-wrapper {
+  display: flex;
+  flex-basis: 50%;
+  flex-direction: column;
+  padding: 0 4px;
+}
+
+.md-divider {
+  margin: 12px 0;
+}
+
+.md-chip {
+  width: 100%;
+  height: 28px;
+  padding-right: 10px;
+  margin-right: 20px;
+  margin-bottom: 6px;
+
+  .md-avatar {
+    height: 28px;
+    width: 28px;
+  }
+
+  .md-chip-text {
+    font-size: 12px;
+  }
+}

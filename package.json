@@ -1,0 +1,33 @@
+{
+  "name": "bz-dev-stats",
+  "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "neutrino start",
+    "build": "neutrino build"
+  },
+  "devDependencies": {
+    "babel-plugin-recharts": "^1.1.0",
+    "neutrino": "^7.3.0",
+    "neutrino-middleware-env": "^7.3.0",
+    "neutrino-middleware-sass": "^0.0.1",
+    "neutrino-preset-react": "^7.3.0"
+  },
+  "dependencies": {
+    "auth0-js": "^8.10.1",
+    "frappe-charts": "^0.0.3",
+    "material-design-icons": "^3.0.1",
+    "react": "^16.0.0",
+    "react-calendar-heatmap": "^1.6.1",
+    "react-chartjs": "^0.8.0",
+    "react-dom": "^16.0.0",
+    "react-fout-stager": "^1.0.3",
+    "react-md": "^1.2.4",
+    "react-router-dom": "^4.2.2",
+    "recharts": "^1.0.0-beta.0",
+    "typeface-roboto": "^0.0.43"
+  }
+}
