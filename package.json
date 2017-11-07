@@ -12,7 +12,7 @@
   "scripts": {
     "start": "neutrino start",
     "build": "neutrino build",
-    "heroku-postbuild": "yarn && neutrino build"
+    "heroku-postbuild": "neutrino build"
   },
   "devDependencies": {
     "babel-plugin-recharts": "^1.1.0",
