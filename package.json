@@ -5,9 +5,14 @@
   "main": "index.js",
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MIT",
+  "engines": {
+    "node": "^8.0.0",
+    "yarn": "^1.2.1"
+  },
   "scripts": {
     "start": "neutrino start",
-    "build": "neutrino build"
+    "build": "neutrino build",
+    "heroku-postbuild": "yarn && neutrino build"
   },
   "devDependencies": {
     "babel-plugin-recharts": "^1.1.0",
