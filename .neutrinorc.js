@@ -1,10 +1,9 @@
 const envs = {
   AUTH_DOMAIN: 'auth-dev.mozilla.auth0.com',
-  AUTH_CLIENT_ID: 'AKWT8X3N1Qm4YyG6zQjfM22Fo6mblkhv',
-  AUTH_AUDIENCE: 'taskcluster-login.ngrok.io',
+  AUTH_CLIENT_ID: '29t2n3LKKnyTbGtWmfTkQpau0mp7QmMH',
   AUTH_REDIRECT_URI: 'http://localhost:5050/login',
   AUTH_RESPONSE_TYPE: 'token id_token',
-  AUTH_SCOPE: 'openid profile',
+  AUTH_SCOPE: 'openid',
   STATS_URL: 'http://localhost:5090/stats'
 };
 

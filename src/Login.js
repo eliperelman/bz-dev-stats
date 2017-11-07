@@ -5,7 +5,6 @@ import { WebAuth } from 'auth0-js';
 const auth = new WebAuth({
   domain: process.env.AUTH_DOMAIN,
   clientID: process.env.AUTH_CLIENT_ID,
-  // audience: process.env.AUTH_AUDIENCE,
   redirectUri: process.env.AUTH_REDIRECT_URI,
   responseType: process.env.AUTH_RESPONSE_TYPE,
   scope: process.env.AUTH_SCOPE
