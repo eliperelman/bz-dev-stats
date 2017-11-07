@@ -32,10 +32,7 @@ module.exports = {
     ['neutrino-middleware-env', Object.keys(envs)],
     (neutrino) => {
       neutrino.config
-        .when(process.env.NODE_ENV === 'production',
-          (config) => config.devtool('source-map'),
-          (config) => config.devtool('cheap-module-eval-source-map')
-        );
+        .when(process.env.NODE_ENV === 'development', (config) => config.devtool('cheap-module-eval-source-map'));
 
       neutrino.config.module.rules.delete('style');
 
