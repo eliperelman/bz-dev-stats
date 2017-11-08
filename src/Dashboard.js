@@ -69,7 +69,7 @@ export default class Dashboard extends Component {
           value={this.state.filterText}
           placeholder="Filter users..."
           toolbar
-          autoFocus
+          autofocus="autofocus"
           onChange={this.handleFilter} />
       );
     }
