@@ -214,3 +214,13 @@ em {
     font-size: 12px;
   }
 }
+
+@media screen and (max-width: 535px) {
+  .md-title.md-title--toolbar {
+    display: none;
+  }
+
+  .searching .md-title.md-title--toolbar {
+    display: block;
+  }
+}

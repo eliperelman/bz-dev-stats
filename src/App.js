@@ -7,24 +7,7 @@ import './app.scss';
 import FontLoader from "./FontLoader";
 
 export default class App extends Component {
-  state = {
-    hasError: false
-  };
-
-  componentDidCatch() {
-    this.setState({ hasError: true });
-  }
-
   render() {
-    if (this.state.hasError) {
-      return (
-        <Paper zDepth={1}>
-          <FontLoader />
-          An error occurred while attempting to create the dashboard. Please check the console and try again.
-        </Paper>
-      );
-    }
-
     return (
       <div>
         <FontLoader />

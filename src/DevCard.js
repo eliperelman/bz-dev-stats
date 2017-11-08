@@ -131,7 +131,7 @@ export default class DevCard extends Component {
     const requestsCount = hasStats && stat.reviewsP1 + stat.reviews + stat.needinfosP1 + stat.needinfos;
 
     return (
-      <Card className="md-cell md-cell--3 md-cell--4-tablet">
+      <Card className="md-cell md-cell--3 md-cell--4-tablet md-cell--4-phone">
         <CardTitle style={{ padding: '14px 24px' }} title={user.name} subtitle={`${requestsCount} OPEN ${requestsCount === 1 ? 'REQUEST' : 'REQUESTS'}`} />
         <CardText style={{ padding: '16px 0' }}>
           {hasError && <p style={{ padding: 20 }}>An error occurred trying to render this view. Please check the console and try again.</p>}
