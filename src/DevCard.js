@@ -18,8 +18,6 @@ const makeDate = (from = 0) => {
 
 export default class DevCard extends Component {
   state = {
-    stat: {},
-    requestsCount: 0,
     hasError: false
   };
 
@@ -64,7 +62,7 @@ export default class DevCard extends Component {
   }
 
   month() {
-    const values = this.getStatsForDays(180);
+    const values = this.getStatsForDays(30);
 
     return (
       <div style={{ padding: '0 20px' }}>
