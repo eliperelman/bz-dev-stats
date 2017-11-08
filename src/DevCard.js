@@ -46,8 +46,7 @@ export default class DevCard extends Component {
         });
 
         return values;
-      }, [])
-      .sort((a, b) => new Date(a.date) - new Date(b.date));
+      }, []);
   }
 
   current(stat) {
