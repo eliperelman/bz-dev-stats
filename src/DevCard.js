@@ -32,22 +32,24 @@ export default class DevCard extends Component {
     const [start] = dates;
     const stats = this.props.user.stats.filter(stat => new Date(stat.date) >= start);
 
-    return dates.reduce((values, date, index) => {
-      const stat = stats.find(stat => (
-        date.getTime() === new Date(new Date(stat.date).setHours(0, 0, 0, 0)).getTime()
-      )) || { ...values[index - 1] };
+    return dates
+      .reduce((values, date, index) => {
+        const stat = stats.find(stat => (
+          date.getTime() === new Date(new Date(stat.date).setHours(0, 0, 0, 0)).getTime()
+        )) || { ...values[index - 1] };
 
-      values.push({
-        reviewsP1: 0,
-        reviews: 0,
-        needinfos: 0,
-        needinfosP1: 0,
-        ...stat,
-        date
-      });
+        values.push({
+          reviewsP1: 0,
+          reviews: 0,
+          needinfos: 0,
+          needinfosP1: 0,
+          ...stat,
+          date
+        });
 
-      return values;
-    }, []);
+        return values;
+      }, [])
+      .sort((a, b) => new Date(a.date) - new Date(b.date));
   }
 
   current(stat) {
