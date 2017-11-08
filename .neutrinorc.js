@@ -1,9 +1,10 @@
+const port = 5080;
 const envs = {
-  AUTH_DOMAIN: 'auth-dev.mozilla.auth0.com',
+  AUTH_DOMAIN: 'auth.mozilla.auth0.com',
   AUTH_CLIENT_ID: '29t2n3LKKnyTbGtWmfTkQpau0mp7QmMH',
-  AUTH_REDIRECT_URI: 'http://localhost:5050/login',
+  AUTH_REDIRECT_URI: `http://localhost:${port}/login`,
   AUTH_RESPONSE_TYPE: 'token id_token',
-  AUTH_SCOPE: 'openid',
+  AUTH_SCOPE: 'openid profile',
   STATS_URL: 'http://localhost:5090/stats'
 };
 
@@ -19,7 +20,7 @@ module.exports = {
         title: 'Bugzilla Developer Stats'
       },
       devServer: {
-        port: 5050,
+        port,
         historyApiFallback: { disableDotRule: true }
       },
       babel: {

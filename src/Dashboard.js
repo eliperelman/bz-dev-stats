@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import { DataTable, TablePagination, TextField } from 'react-md';
+import { Button, TextField, Toolbar } from 'react-md';
 import DevCard from './DevCard';
 import Spinner from './Spinner';
 
-const ROWS = 50;
+const PAGE_LIMIT = 8;
 
 export default class Dashboard extends Component {
   state = {
     users: null,
     loading: false,
     filterText: '',
-    offset: 0
+    page: 0
   };
 
   async componentWillMount() {
@@ -21,7 +21,7 @@ export default class Dashboard extends Component {
     const url = this.props.email ?
       `${process.env.STATS_URL}/${this.props.email}` :
       process.env.STATS_URL;
-    const response = await fetch(url, { headers: { Authorization: `Bearer ${this.props.credentials.accessToken}` } });
+    const response = await fetch(url, { headers: { Authorization: `Bearer ${this.props.credentials.idToken}` } });
 
     if (response.ok) {
       this.setState({
@@ -34,15 +34,102 @@ export default class Dashboard extends Component {
   }
 
   handleFilter = (value) => {
-    this.setState({ filterText: value });
+    this.setState({
+      filterText: value,
+      page: 0
+    });
   };
 
-  handlePagination = (offset) => {
-    this.setState({ offset });
+  handleNavClick = () => {
+    this.setState({ searching: false });
   };
+
+  handleActionClick = () => {
+    if (this.state.searching) {
+      this.setState({ filterText: '', searching: false });
+    } else {
+      this.setState({ searching: true });
+    }
+  };
+
+  handlePrevious = () => {
+    this.setState({ page: this.state.page - 1 });
+  };
+
+  handleNext = () => {
+    this.setState({ page: this.state.page + 1 });
+  };
+
+  title() {
+    if (this.state.searching) {
+      return (
+        <TextField
+          block
+          id="name-filter"
+          value={this.state.filterText}
+          placeholder="Filter users..."
+          toolbar
+          autoFocus
+          onChange={this.handleFilter} />
+      );
+    }
+
+    return (
+      <Button flat primary iconChildren="bug_report">
+        <span style={{ textTransform: 'none', fontSize: 22 }}>Bugzilla Developer Stats</span>
+      </Button>
+    );
+  }
+
+  toolbar() {
+    const { searching, users, page } = this.state;
+    const paging = users.length > PAGE_LIMIT;
+    const pages = Math.ceil(users.length / PAGE_LIMIT);
+    const actions = [(
+      <Button key="search" icon onClick={this.handleActionClick}>
+        {searching ? 'close' : 'search'}
+      </Button>
+    )];
+    const nav = searching ?
+      (
+        <Button key="nav" icon onClick={this.handleNavClick}>
+          arrow_back
+        </Button>
+      ) :
+      null;
+
+    if (paging && !searching) {
+      actions.push((
+        <Button key="previous" icon onClick={this.handlePrevious} disabled={page === 0}>
+          keyboard_arrow_left
+        </Button>
+      ));
+      actions.push((
+        <Button key="wat" flat disabled style={{ fontSize: 14, textTransform: 'none' }}>
+          {page + 1} of {pages}
+        </Button>
+      ));
+      actions.push((
+        <Button key="next" icon onClick={this.handleNext} disabled={page === pages - 1}>
+          keyboard_arrow_right
+        </Button>
+      ));
+    }
+
+    return (
+      <Toolbar
+        fixed
+        colored
+        id="stats-toolbar"
+        titleId="filter-text"
+        nav={nav}
+        actions={actions}
+        title={this.title()} />
+    );
+  }
 
   render() {
-    const { loading, users, filterText, offset } = this.state;
+    const { users, loading, filterText, page } = this.state;
 
     if (loading) {
       return (
@@ -56,39 +143,34 @@ export default class Dashboard extends Component {
       return null;
     }
 
-    const filteredUsers = users
-      .filter(user => filterText ? user.name.toLowerCase().includes(filterText) : true);
+    const filteredUsers = filterText ?
+      users.filter(user => user.name.toLowerCase().includes(filterText)) :
+      users;
 
-    if (users.length < ROWS) {
+    if (users.length < PAGE_LIMIT) {
       return (
-        <div className="md-grid" style={{ alignItems: 'flex-start' }}>
-          {filteredUsers.map((user, index) => <DevCard key={`user-card-${index}`} user={user} />)}
+        <div>
+          {this.toolbar()}
+          <div className="md-grid" style={{ alignItems: 'flex-start', marginTop: 64 }}>
+            {filteredUsers.map((user, index) => <DevCard key={`user-card-${index}`} user={user} />)}
+          </div>
         </div>
       );
     }
 
     return (
       <div>
-        <div className="md-grid">
-          <div className="md-cell md-cell--6">
-            <TextField
-              id="floating-center-title"
-              label="Filter users..."
-              value={filterText}
-              onChange={this.handleFilter}
-              lineDirection="center"
-              className="md-cell md-cell--bottom" />
-          </div>
-          {filteredUsers.length >= ROWS && (
-            <div className="md-cell md-cell--6">
-              <DataTable baseId="simple-pagination">
-                <TablePagination rows={filteredUsers.length} defaultRowsPerPage={ROWS} onPagination={this.handlePagination} />
-              </DataTable>
-            </div>
-          )}
-        </div>
-        <div className="md-grid" style={{ alignItems: 'flex-start' }}>
-          {filteredUsers.slice(offset, offset + ROWS).map((user, index) => <DevCard key={`user-card-${index}`} user={user} />)}
+        {this.toolbar()}
+        <div className="md-grid" style={{ alignItems: 'flex-start', marginTop: 64 }}>
+          {
+            filteredUsers
+              .slice(page * PAGE_LIMIT, (page + 1) * PAGE_LIMIT)
+              .map((user, index) => (
+                <DevCard
+                  key={`user-card-${user.name.replace(/\s/g, '-')}`}
+                  user={user} />
+              ))
+          }
         </div>
       </div>
     );

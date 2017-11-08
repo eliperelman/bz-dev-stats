@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Avatar, Button, Card, CardText, CardTitle, Chip, DataTable, Divider, FontIcon, List, ListItem } from 'react-md';
+import { Avatar, Button, Card, CardText, CardTitle, Chip, Divider } from 'react-md';
 import Heatmap from 'react-calendar-heatmap';
 import { LineChart, Line, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
 
@@ -22,21 +22,6 @@ export default class DevCard extends Component {
     requestsCount: 0,
     hasError: false
   };
-
-  componentWillMount() {
-    const { user } = this.props;
-
-    if (!user.stats.length) {
-      return;
-    }
-
-    const stat = user.stats[user.stats.length - 1];
-
-    this.setState({
-      stat,
-      requestsCount: stat.reviewsP1 + stat.reviews + stat.needinfosP1 + stat.needinfos
-    });
-  }
 
   componentDidCatch() {
     this.setState({ hasError: true });
@@ -65,9 +50,7 @@ export default class DevCard extends Component {
     }, []);
   }
 
-  current() {
-    const { stat } = this.state;
-
+  current(stat) {
     return (
       <div className="md-grid chips">
         <Count label="Reviews, P1" color="grey">{stat.reviewsP1}</Count>
@@ -86,7 +69,7 @@ export default class DevCard extends Component {
         Past 30 days
         <div style={{ height: 80, marginTop: 10 }}>
           <ResponsiveContainer>
-            <LineChart data={values} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+            <LineChart data={values} margin={{ top: 0, right: 0, left: 0, bottom: 0 }} isAnimationActive={false}>
               <Tooltip label="Requests" />
               <XAxis dataKey="date" hide />
               <Line type="monotone" dataKey="reviewsP1" stroke="#616161" dot={false} />
@@ -138,8 +121,15 @@ export default class DevCard extends Component {
 
   render() {
     const { user } = this.props;
-    const { requestsCount, hasError } = this.state;
+    const { hasError } = this.state;
+
+    if (!this.props.user) {
+      return null;
+    }
+
     const hasStats = user.stats && user.stats.length !== 0;
+    const stat = hasStats && user.stats[user.stats.length - 1];
+    const requestsCount = hasStats && stat.reviewsP1 + stat.reviews + stat.needinfosP1 + stat.needinfos;
 
     return (
       <Card className="md-cell md-cell--3 md-cell--4-tablet">
@@ -149,7 +139,7 @@ export default class DevCard extends Component {
           {!hasError && !hasStats && <em style={{ padding: 20 }}>No stats for this user.</em>}
           {!hasError && hasStats && (
             <div>
-              {this.current()}
+              {this.current(stat)}
               <Divider />
               {this.month()}
               <Divider />
