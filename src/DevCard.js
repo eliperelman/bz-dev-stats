@@ -96,7 +96,16 @@ export default class DevCard extends Component {
         Past 180 days
         <div style={{ height: 100, overflowX: 'auto', overflowY: 'hidden', marginLeft: 10 }}>
           <Heatmap
-            titleForValue={(value) => value && `${value.requests} requests`}
+            titleForValue={(value) => {
+              if (!value) {
+                return '';
+              }
+
+              return value &&
+                `${new Date(value.date).toLocaleDateString()} - ${value.requests} ${
+                  value.requests === 1 ? 'request' : 'requests'
+                }`;
+            }}
             classForValue={(value) => {
               if (!value || !value.requests) {
                 return 'color-0';
