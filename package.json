@@ -6,8 +6,8 @@
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MIT",
   "engines": {
-    "node": "^8.0.0",
-    "yarn": "^1.2.1"
+    "node": ">=8.0.0",
+    "yarn": ">=1.2.1"
   },
   "scripts": {
     "start": "neutrino start",
@@ -19,12 +19,14 @@
     "neutrino": "^7.3.0",
     "neutrino-middleware-env": "^7.3.0",
     "neutrino-middleware-sass": "^0.0.1",
+    "neutrino-preset-airbnb": "^4.0.0",
     "neutrino-preset-react": "^7.3.0"
   },
   "dependencies": {
     "auth0-js": "^8.10.1",
     "frappe-charts": "^0.0.3",
     "material-design-icons": "^3.0.1",
+    "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-calendar-heatmap": "^1.6.1",
     "react-chartjs": "^0.8.0",
